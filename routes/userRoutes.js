@@ -23,4 +23,16 @@ router.get("/:id", (req, res) => {
   }
 });
 
+router.get("/:id/posts", (req, res) => {
+  const userId = parseInt(req.params.id);
+  const userPosts = posts.filter((post) => post.authorId === userId);
+  if (userPosts.length > 0) {
+    res.json(userPosts);
+  } else {
+    res
+      .status(404)
+      .json({ message: `No posts found for user with ID ${userId}` });
+  }
+});
+
 module.exports = router;
