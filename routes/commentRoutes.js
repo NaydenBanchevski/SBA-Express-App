@@ -12,4 +12,12 @@ router.post("/", (req, res) => {
   res.status(201).json(newComment);
 });
 
+router.put("/:id", (req, res) => {
+  const commentId = parseInt(req.params.id);
+  comments = comments.map((comment) =>
+    comment.id === commentId ? { ...comment, ...req.body } : comment
+  );
+  res.json(comments.find((comment) => comment.id === commentId));
+});
+
 module.exports = router;

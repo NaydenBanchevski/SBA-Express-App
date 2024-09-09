@@ -35,4 +35,17 @@ router.get("/:id/posts", (req, res) => {
   }
 });
 
+router.put("/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+  users = users.map((user) =>
+    user.id === userId ? { ...user, ...req.body } : user
+  );
+  const updatedUser = users.find((user) => user.id === userId);
+  if (updatedUser) {
+    res.json(updatedUser);
+  } else {
+    res.status(404).json({ message: `User with ID ${userId} not found` });
+  }
+});
+
 module.exports = router;
