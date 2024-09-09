@@ -48,4 +48,16 @@ router.put("/:id", (req, res) => {
   }
 });
 
+router.delete("/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+  const userExists = users.some((user) => user.id === userId);
+
+  if (userExists) {
+    users = users.filter((user) => user.id !== userId);
+    res.redirect("/"); // Redirect to the home page
+  } else {
+    res.status(404).json({ message: `User with ID ${userId} not found` });
+  }
+});
+
 module.exports = router;

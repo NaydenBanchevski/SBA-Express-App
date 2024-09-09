@@ -20,4 +20,10 @@ router.put("/:id", (req, res) => {
   res.json(posts.find((post) => post.id === postId));
 });
 
+router.delete("/:id", (req, res) => {
+  const postId = parseInt(req.params.id);
+  posts = posts.filter((post) => post.id !== postId);
+  res.status(204).send();
+});
+
 module.exports = router;

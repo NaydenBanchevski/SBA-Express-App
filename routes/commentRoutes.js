@@ -20,4 +20,10 @@ router.put("/:id", (req, res) => {
   res.json(comments.find((comment) => comment.id === commentId));
 });
 
+router.delete("/:id", (req, res) => {
+  const commentId = parseInt(req.params.id);
+  comments = comments.filter((comment) => comment.id !== commentId);
+  res.status(204).send();
+});
+
 module.exports = router;
