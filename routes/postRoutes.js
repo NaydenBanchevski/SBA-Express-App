@@ -26,4 +26,16 @@ router.delete("/:id", (req, res) => {
   res.status(204).send();
 });
 
+router.get("/user/:userId", (req, res) => {
+  const userId = parseInt(req.params.userId);
+  const userPosts = posts.filter((post) => post.authorId === userId);
+  if (userPosts.length > 0) {
+    res.json(userPosts);
+  } else {
+    res
+      .status(404)
+      .json({ message: `No posts found for user with ID ${userId}` });
+  }
+});
+
 module.exports = router;

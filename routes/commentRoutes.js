@@ -26,4 +26,33 @@ router.delete("/:id", (req, res) => {
   res.status(204).send();
 });
 
+// get comments by user id
+router.get("/user/:userId", (req, res) => {
+  const userId = parseInt(req.params.userId);
+  console.log(userId);
+
+  const userComments = comments.filter((comment) => comment.userId === userId);
+  console.log(userComments);
+
+  if (userComments.length > 0) {
+    res.json(userComments);
+  } else {
+    res
+      .status(404)
+      .json({ message: `No comments found for user with ID ${userId}` });
+  }
+});
+
+router.get("/post/:postId", (req, res) => {
+  const postId = parseInt(req.params.postId);
+  const postComments = comments.filter((comment) => comment.postId === postId);
+  if (postComments.length > 0) {
+    res.json(postComments);
+  } else {
+    res
+      .status(404)
+      .json({ message: `No comments found for post with ID ${postId}` });
+  }
+});
+
 module.exports = router;
